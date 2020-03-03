@@ -79,11 +79,15 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="zzly&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="Netty现有的服务模型：IO阻塞型模型、Reactor模型（单Reactor单线程、单Reactor多线程、多Reactor多线程）IO阻塞模型的特点： 采用阻塞IO模式获取输入数据 每个连接都需要单独的线程进行处理  IO阻塞模型的缺点： 并发量大的时候，会占用很大的系统资源 连接创建后如果没有可读数据，会造成线程资源浪费  Reactor解决方案（IO复用结合线程池）： 基于IO复用模型 基">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IO模型">
+<meta property="og:url" content="http://yoursite.com/2020/03/02/IO%E6%A8%A1%E5%9E%8B/index.html">
 <meta property="og:site_name" content="zzly&#39;s Blog">
+<meta property="og:description" content="Netty现有的服务模型：IO阻塞型模型、Reactor模型（单Reactor单线程、单Reactor多线程、多Reactor多线程）IO阻塞模型的特点： 采用阻塞IO模式获取输入数据 每个连接都需要单独的线程进行处理  IO阻塞模型的缺点： 并发量大的时候，会占用很大的系统资源 连接创建后如果没有可读数据，会造成线程资源浪费  Reactor解决方案（IO复用结合线程池）： 基于IO复用模型 基">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-02T11:00:25.120Z">
+<meta property="article:modified_time" content="2020-03-02T11:03:27.568Z">
 <meta property="article:author" content="zzly">
 <meta name="twitter:card" content="summary">
 
@@ -115,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/03/02/IO模型/"/>
 
 
 
 
 
-  <title>zzly's Blog</title>
+  <title>IO模型 | zzly's Blog</title>
   
 
 
@@ -140,8 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -234,9 +237,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -266,9 +269,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/02/IO%E6%A8%A1%E5%9E%8B/" itemprop="url">IO模型</a></h1>
+          <h1 class="post-title" itemprop="name headline">IO模型</h1>
         
 
         <div class="post-meta">
@@ -318,9 +319,7 @@
       
 
       
-        
-          
-            <h2 id="Netty"><a href="#Netty" class="headerlink" title="Netty"></a><em>Netty</em></h2><h6 id="现有的服务模型：IO阻塞型模型、Reactor模型（单Reactor单线程、单Reactor多线程、多Reactor多线程）"><a href="#现有的服务模型：IO阻塞型模型、Reactor模型（单Reactor单线程、单Reactor多线程、多Reactor多线程）" class="headerlink" title="现有的服务模型：IO阻塞型模型、Reactor模型（单Reactor单线程、单Reactor多线程、多Reactor多线程）"></a>现有的服务模型：IO阻塞型模型、Reactor模型（单Reactor单线程、单Reactor多线程、多Reactor多线程）</h6><h6 id="IO阻塞模型的特点："><a href="#IO阻塞模型的特点：" class="headerlink" title="IO阻塞模型的特点："></a>IO阻塞模型的特点：</h6><ul>
+        <h2 id="Netty"><a href="#Netty" class="headerlink" title="Netty"></a><em>Netty</em></h2><h6 id="现有的服务模型：IO阻塞型模型、Reactor模型（单Reactor单线程、单Reactor多线程、多Reactor多线程）"><a href="#现有的服务模型：IO阻塞型模型、Reactor模型（单Reactor单线程、单Reactor多线程、多Reactor多线程）" class="headerlink" title="现有的服务模型：IO阻塞型模型、Reactor模型（单Reactor单线程、单Reactor多线程、多Reactor多线程）"></a>现有的服务模型：IO阻塞型模型、Reactor模型（单Reactor单线程、单Reactor多线程、多Reactor多线程）</h6><h6 id="IO阻塞模型的特点："><a href="#IO阻塞模型的特点：" class="headerlink" title="IO阻塞模型的特点："></a>IO阻塞模型的特点：</h6><ul>
 <li>采用阻塞IO模式获取输入数据</li>
 <li>每个连接都需要单独的线程进行处理</li>
 </ul>
@@ -358,8 +357,6 @@
 <li>Reactor主线程可以关联多个SubReactor子线程</li>
 </ul>
 <h6 id="优点：父线程与子线程数据交互简单、职责明确，父线程只负责接收新连接，子线程完成后续的业务处理"><a href="#优点：父线程与子线程数据交互简单、职责明确，父线程只负责接收新连接，子线程完成后续的业务处理" class="headerlink" title="优点：父线程与子线程数据交互简单、职责明确，父线程只负责接收新连接，子线程完成后续的业务处理"></a>优点：父线程与子线程数据交互简单、职责明确，父线程只负责接收新连接，子线程完成后续的业务处理</h6><h6 id="优点：Reactor只需要将新连接传递给子线程、子线程无需返回数据"><a href="#优点：Reactor只需要将新连接传递给子线程、子线程无需返回数据" class="headerlink" title="优点：Reactor只需要将新连接传递给子线程、子线程无需返回数据"></a>优点：Reactor只需要将新连接传递给子线程、子线程无需返回数据</h6><h6 id="缺点：编程复杂度高"><a href="#缺点：编程复杂度高" class="headerlink" title="缺点：编程复杂度高"></a>缺点：编程复杂度高</h6><h6 id="现实主从多线程实例：Nginx"><a href="#现实主从多线程实例：Nginx" class="headerlink" title="现实主从多线程实例：Nginx"></a>现实主从多线程实例：Nginx</h6>
-          
-        
       
     </div>
     
@@ -376,131 +373,28 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/24/test-my-site/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zzly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://img.52z.com/upload/news/image/20181103/20181103162602_67105.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zzly's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/02/24/test-my-site/" itemprop="url">test_my_site</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-24T22:01:41+08:00">
-                2020-02-24
-              </time>
+              <a href="/2020/02/24/test-my-site/" rel="next" title="test_my_site">
+                <i class="fa fa-chevron-left"></i> test_my_site
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -510,10 +404,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -521,6 +416,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -541,8 +440,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -588,6 +496,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Netty"><span class="nav-number">1.</span> <span class="nav-text">Netty</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#现有的服务模型：IO阻塞型模型、Reactor模型（单Reactor单线程、单Reactor多线程、多Reactor多线程）"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">现有的服务模型：IO阻塞型模型、Reactor模型（单Reactor单线程、单Reactor多线程、多Reactor多线程）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#IO阻塞模型的特点："><span class="nav-number">1.0.0.0.2.</span> <span class="nav-text">IO阻塞模型的特点：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#IO阻塞模型的缺点："><span class="nav-number">1.0.0.0.3.</span> <span class="nav-text">IO阻塞模型的缺点：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Reactor解决方案（IO复用结合线程池）："><span class="nav-number">1.0.0.0.4.</span> <span class="nav-text">Reactor解决方案（IO复用结合线程池）：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单Reactor单线程"><span class="nav-number">1.0.1.</span> <span class="nav-text">单Reactor单线程</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#总结：服务端使用一个线程通过多路复用来处理所有的IO请求，编码简单，清晰明了。但是如果客户端的连接较多则无法支撑"><span class="nav-number">1.0.1.0.1.</span> <span class="nav-text">总结：服务端使用一个线程通过多路复用来处理所有的IO请求，编码简单，清晰明了。但是如果客户端的连接较多则无法支撑</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#优点：模型简单，没有多线程、进程通信、竞争的问题、全部在一个线程中实现"><span class="nav-number">1.0.1.0.2.</span> <span class="nav-text">优点：模型简单，没有多线程、进程通信、竞争的问题、全部在一个线程中实现</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#缺点：1）只有一个线程无法发挥多个CPU的优势，Handler在处理某个连接的业务时，整个进程无法处理其他连接事件，很有造成性能瓶颈。-2）如果线程意外终止，或者进入死循环，会导致整个通讯模块不可用。"><span class="nav-number">1.0.1.0.3.</span> <span class="nav-text">缺点：1）只有一个线程无法发挥多个CPU的优势，Handler在处理某个连接的业务时，整个进程无法处理其他连接事件，很有造成性能瓶颈。 2）如果线程意外终止，或者进入死循环，会导致整个通讯模块不可用。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#使用场景-客户端连接数有限，业务处理速度非常快"><span class="nav-number">1.0.1.0.4.</span> <span class="nav-text">使用场景: 客户端连接数有限，业务处理速度非常快</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单Reactor多线程"><span class="nav-number">1.0.2.</span> <span class="nav-text">单Reactor多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#优点：可以充分利用多核CPU的处理能力"><span class="nav-number">1.0.2.0.1.</span> <span class="nav-text">优点：可以充分利用多核CPU的处理能力</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#缺点：多线程数据共享和访问比较复杂，Reactor处理所有事件的监听和响应是在一个线程中完成的，在高并发情况下，容易造成性能瓶颈"><span class="nav-number">1.0.2.0.2.</span> <span class="nav-text">缺点：多线程数据共享和访问比较复杂，Reactor处理所有事件的监听和响应是在一个线程中完成的，在高并发情况下，容易造成性能瓶颈</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主从Reactor多线程："><span class="nav-number">1.0.3.</span> <span class="nav-text">主从Reactor多线程：</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#产生原因针对单Reactor多线程中，Reactor使用单线程，在高并发情况下容易造成性能瓶颈的问题。可以让Reactor在多线程中运行"><span class="nav-number">1.0.3.0.1.</span> <span class="nav-text">产生原因针对单Reactor多线程中，Reactor使用单线程，在高并发情况下容易造成性能瓶颈的问题。可以让Reactor在多线程中运行</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#优点：父线程与子线程数据交互简单、职责明确，父线程只负责接收新连接，子线程完成后续的业务处理"><span class="nav-number">1.0.3.0.2.</span> <span class="nav-text">优点：父线程与子线程数据交互简单、职责明确，父线程只负责接收新连接，子线程完成后续的业务处理</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#优点：Reactor只需要将新连接传递给子线程、子线程无需返回数据"><span class="nav-number">1.0.3.0.3.</span> <span class="nav-text">优点：Reactor只需要将新连接传递给子线程、子线程无需返回数据</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#缺点：编程复杂度高"><span class="nav-number">1.0.3.0.4.</span> <span class="nav-text">缺点：编程复杂度高</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#现实主从多线程实例：Nginx"><span class="nav-number">1.0.3.0.5.</span> <span class="nav-text">现实主从多线程实例：Nginx</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -728,6 +652,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
